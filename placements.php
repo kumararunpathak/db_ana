@@ -33,7 +33,7 @@
                         <a class="logo logo-navigation" href="#"></a>
                     </li>
                 </ul>
-                 <h4><a class="logoout pull-right" href="/logout.php">Logout</a></h4>
+                 <h4><a class="logoout pull-right" href="logout.php">Logout</a></h4>
             </div>
             <!-- /.navbar-collapse -->
         </div>
