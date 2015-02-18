@@ -32,7 +32,7 @@ if(!empty($_POST)) {
 </head>
 <body>
 <div class="bs-example">
-    <form action="/login.php" class="form-horizontal" method="post">
+    <form action="login.php" class="form-horizontal" method="post">
         <div class="logo"></div>
         
         <?php if($wrongCredential == true): ?>
