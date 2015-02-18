@@ -35,7 +35,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class="logo logo-navigation" href="#"></a>
+                        <a class="logo logo-navigation" href="placements.php"></a>
                     </li>
                 </ul>
                  <h4><a class="logoout pull-right" href="/logout.php">Logout</a></h4>
@@ -53,7 +53,7 @@
                 <h1 class="page-header">Analytic Dashboard
                    <small>Placement Id: <?php echo $placement_id;?></small> 
                 </h1>
-                <small class=""> <a href="/placements.php">Placement List </a> >> <?php echo $placement_id;?> </small>
+                <small class=""> <a href="placements.php">Placement List </a> >> <?php echo $placement_id;?> </small>
             </div>
         </div>
         <!-- /.row -->
@@ -64,7 +64,7 @@
           <?php if(!(substr($val, 0, 1) == '.')): ?>
             <div class="col-md-6 portfolio-item">
                 <a href="#">
-                    <img class="img-responsive" src=<?php echo   "/Archive/" .$placement_id . "/". $val ; ?> alt="">
+                    <img class="img-responsive" src=<?php echo   "Archive/" .$placement_id . "/". $val ; ?> alt="">
                 </a>
                 <h3>
                     <a href="#"><?php echo $val;?></a>
