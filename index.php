@@ -5,7 +5,7 @@
 	     header("Location: login.php");// send to login page
 	     exit;
 	   } 
-	   CONST IMAGE_LOCATION = '/Users/kumara/Sites/personagraph/Archive';
+	   CONST IMAGE_LOCATION = 'Archive';
 	   $placement_id =  $_GET['placement_id'];
 	   $placement_id = $placement_id == ""?3669452:$placement_id;
 	   $files = Array();

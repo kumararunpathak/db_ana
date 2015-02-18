@@ -5,7 +5,7 @@
 	     header("Location: login.php");// send to login page
 	     exit;
 	   } 
-	   CONST IMAGE_LOCATION = "/Users/kumara/Sites/personagraph/Archive";
+	   CONST IMAGE_LOCATION = "Archive";
 	   $placements = scandir(IMAGE_LOCATION);
   ?>
 <!DOCTYPE html>
