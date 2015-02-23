@@ -54,7 +54,7 @@
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Campaign Optimaztion Dashboard
+                <h1 class="page-header">Campaign Optimization Dashboard
                    <small>Placement Id: <?php echo $pId;?></small> 
                 </h1>
                 <small class=""> <a href="placements.php">Placement List </a> >> <?php echo $pId;?> </small>
