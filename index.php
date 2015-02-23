@@ -10,7 +10,11 @@
 	   $placement_id = $placement_id == ""?3669452:$placement_id;
 	   $files = Array();
 	   if(is_dir(IMAGE_LOCATION . "/" .$placement_id))
-          $files = scandir(IMAGE_LOCATION . "/" .$placement_id);	 
+          $files = scandir(IMAGE_LOCATION . "/" .$placement_id);	
+	   $nameArray = explode("_",$placement_id);
+	   $pId =  $nameArray[0];
+	  // $placementName
+	   
 ?>
   
 <!DOCTYPE html>
@@ -50,10 +54,10 @@
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Analytic Dashboard
-                   <small>Placement Id: <?php echo $placement_id;?></small> 
+                <h1 class="page-header">Campaign Optimaztion Dashboard
+                   <small>Placement Id: <?php echo $pId;?></small> 
                 </h1>
-                <small class=""> <a href="placements.php">Placement List </a> >> <?php echo $placement_id;?> </small>
+                <small class=""> <a href="placements.php">Placement List </a> >> <?php echo $pId;?> </small>
             </div>
         </div>
         <!-- /.row -->
@@ -67,7 +71,7 @@
                     <img class="img-responsive" src=<?php echo   "Archive/" .$placement_id . "/". $val ; ?> alt="">
                 </a>
                 <h3>
-                    <a href="#"><?php echo $val;?></a>
+                    <a href="#"><?php echo str_replace("_", " ", substr($val,0,-4));?></a>
                 </h3>
                 <p></p>
             </div>

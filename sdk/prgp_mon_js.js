@@ -2,9 +2,8 @@
 function stopRefresh(){if(refreshId!==undefined){clearInterval(refreshId);}}
 function getParameterByName(name,params){name=name.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var regex=new RegExp("[\\?&]"+name+"=([^&#]*)"),results=regex.exec(params);return results===null?"":decodeURIComponent(results[1].replace(/\+/g," "));}
 function adlink(){var ad=document.getElementById('mainframe');if(isWindowActive&&isOnScreen(ad)){if(ad!==null){d.parentNode.removeChild(ad);d.parentNode.insertBefore(ifrm,d);}else{d.parentNode.insertBefore(ifrm,d);}}}
-function isOnScreen(element){var elementOffsetTop=parseInt(element.offsetTop);var elementHeight=parseInt(element.height);var screenScrollTop=parseInt(window.scrollY);var screenHeight=parseInt(window.screen.availHeight);var scrollIsAboveElement=elementOffsetTop+elementHeight-screenScrollTop>=0;var elementIsVisibleOnScreen=screenScrollTop+screenHeight-elementOffsetTop>=0;return scrollIsAboveElement&&elementIsVisibleOnScreen;}
-function wfocus(){if(refreshId!==undefined){triggerRefresh();}
-isWindowActive=true;}
+function isOnScreen(element){var elementOffsetTop=parseInt(element.offsetTop);var elementHeight=parseInt(element.height);var screenScrollTop=parseInt(window.scrollY);var screenHeight=parseInt(window.screen.availHeight);var elementHalfHeight=Math.floor(elementHeight/2);var scrollIsAboveElement=elementOffsetTop+elementHeight-elementHalfHeight-screenScrollTop>=0;var elementIsVisibleOnScreen=screenScrollTop+screenHeight-elementOffsetTop-elementHalfHeight>=0;return scrollIsAboveElement&&elementIsVisibleOnScreen;}
+function wfocus(){isWindowActive=true;if(refreshId!==undefined){triggerRefresh();}}
 function wBlur(){if(refreshId!==undefined){stopRefresh();}
 isWindowActive=false;}
 function init(){ifrm.src='http://ib.adnxs.com/tt?id='+id+'&size='+s+'&cb='+cb;ifrm.async=true;ifrm.id='mainframe';ifrm.height=s.substring(s.indexOf('x')+1,s.length);ifrm.width=s.substring(0,s.indexOf('x'));ifrm.scrolling='no';ifrm.style.display='block';ifrm.style.margin='auto';ifrm.allowtransparency='true';if(floating==1){ifrm.style.position='fixed';ifrm.style.bottom='1px';ifrm.style.width='100%';}

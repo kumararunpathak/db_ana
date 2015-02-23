@@ -56,10 +56,21 @@
 
         <div class="placement-container">
             <div class="list-group">
+              <div class="placement-header">
+				            Placement Name <span class="pull-right">Placement Id</span>
+			   </div>
                <?php foreach($placements as $key => $val): ?>
-	                <?php if(is_numeric($val)):?>
+	                <?php if(!(substr($val, 0, 1) == '.')):
+	                
+	                $nameArray = explode("_",$val);
+	                $pId =  $nameArray[0];
+	                $pName = substr($val, strlen($pId) + 1);
+	                $pName = str_replace("_"," ",$pName);
+	                $pName = str_replace("-"," ",$pName);
+	                
+	                ?>
 				        <a href="index.php?placement_id=<?php echo $val;?>" class="list-group-item">
-				             <?php echo $val; ?> <span class="badge"></span>
+				            <?php echo $pName; ?>  <span class="pull-right"><?php echo $pId; ?></span>
 				        </a>
 			        <?php endif; ?>
                <?php endforeach; ?>
@@ -79,6 +90,7 @@
 
     </div>
     <!-- /.container -->
+    
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
   

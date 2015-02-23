@@ -47,16 +47,17 @@
 	    var elementHeight = parseInt(element.height);
 	    var screenScrollTop = parseInt(window.scrollY);
 	    var screenHeight = parseInt(window.screen.availHeight);
-	    var scrollIsAboveElement = elementOffsetTop + elementHeight - screenScrollTop >= 0;
-	    var elementIsVisibleOnScreen = screenScrollTop + screenHeight - elementOffsetTop >= 0;
+	    var elementHalfHeight = Math.floor(elementHeight/2);
+	    var scrollIsAboveElement = elementOffsetTop + elementHeight - elementHalfHeight - screenScrollTop >= 0;
+	    var elementIsVisibleOnScreen = screenScrollTop + screenHeight - elementOffsetTop - elementHalfHeight >= 0;
 	    return scrollIsAboveElement && elementIsVisibleOnScreen;
 	}
 	    
     function wfocus(){
+    	isWindowActive = true;
     	if(refreshId !== undefined){
     		triggerRefresh();
 		 }
-    	isWindowActive = true;
     }
 	
     function wBlur(){
