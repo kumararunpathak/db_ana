@@ -13,6 +13,10 @@
           $files = scandir(IMAGE_LOCATION . "/" .$placement_id);	
 	   $nameArray = explode("_",$placement_id);
 	   $pId =  $nameArray[0];
+	   
+	   $pName = substr($placement_id, strlen($pId) + 1);
+	   $pName = str_replace("_"," ",$pName);
+	   $pName = str_replace("-"," ",$pName);
 	  // $placementName
 	   
 ?>
@@ -57,7 +61,7 @@
                 <h1 class="page-header">Campaign Optimization Dashboard
                    <small>Placement Id: <?php echo $pId;?></small> 
                 </h1>
-                <small class=""> <a href="placements.php">Placement List </a> >> <?php echo $pId;?> </small>
+                <small class=""> <a href="placements.php">Placement List </a> >> <?php echo $pName;?> </small>
             </div>
         </div>
         <!-- /.row -->
