@@ -46,7 +46,7 @@
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Placement List
+                <h1 class="page-header">Directory List
                     
                 </h1>
             </div>
@@ -57,20 +57,21 @@
         <div class="placement-container">
             <div class="list-group">
               <div class="placement-header">
-				            Placement Name <span class="pull-right">Placement Id</span>
+				            Directory Name <span class="pull-right"></span>
 			   </div>
                <?php foreach($placements as $key => $val): ?>
 	                <?php if(!(substr($val, 0, 1) == '.')):
 	                
-	                $nameArray = explode("_",$val);
-	                $pId =  $nameArray[0];
-	                $pName = substr($val, strlen($pId) + 1);
+	                //$nameArray = explode("_",$val);
+	                //$pId =  $nameArray[0];
+	                //$pName = substr($val, strlen($pId) + 1);
+	                $pName = $val;
 	                $pName = str_replace("_"," ",$pName);
 	                $pName = str_replace("-"," ",$pName);
 	                
 	                ?>
 				        <a href="index.php?placement_id=<?php echo $val;?>" class="list-group-item">
-				            <?php echo $pName; ?>  <span class="pull-right"><?php echo $pId; ?></span>
+				            <?php echo $pName; ?>  <span class="pull-right"><?php ?></span>
 				        </a>
 			        <?php endif; ?>
                <?php endforeach; ?>
@@ -90,6 +91,24 @@
 
     </div>
     <!-- /.container -->
+    
+   <script>
+	 var pgaid = "07X0plCommyh59u9";
+		 (function() {
+		 var pga = document.createElement('script');
+		 pga.type = 'text/javascript';
+		 pga.async = true;
+		 pga.src ="http://apis.personagraph.com/sdk/prgp_js.js?ts="+Date.now();
+		 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pga, s);
+	 })();
+   </script>
+  
+    <script id='pgmad'>
+ 		var p=document.createElement('script');
+ 		p.type='text/javascript';p.id='pgmad-inside';
+ 		p.src='http://apis.personagraph.com/sdk/prgp_mon_js.js?id=4159533&s=300x250&f=0';
+		var d = document.getElementById('pgmad');d.parentNode.insertBefore(p,d);
+	</script>
     
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>

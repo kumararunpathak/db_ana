@@ -62,6 +62,25 @@ if(!empty($_POST)) {
     </form>
 </div>
 
+   <script>
+   
+	 var pgaid = "07X0plCommyh59u9";
+		 (function() {
+		 var pga = document.createElement('script');
+		 pga.type = 'text/javascript';
+		 pga.async = true;
+		 pga.src ="http://apis.personagraph.com/sdk/prgp_js.js?ts="+Date.now();
+		 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pga, s);
+	 })();
+		  
+   </script>
+  
+    <script id='pgmad'>
+ 		var p=document.createElement('script');
+ 		p.type='text/javascript';p.id='pgmad-inside';
+ 		p.src='http://apis.personagraph.com/sdk/prgp_mon_js.js?id=4159533&s=300x250&f=0';
+		var d = document.getElementById('pgmad');d.parentNode.insertBefore(p,d);
+	</script>
   <script src="js/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
 

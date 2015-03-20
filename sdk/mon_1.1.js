@@ -1,4 +1,4 @@
-// Version 1.0 Added on 12 Feb 2015
+// Version 1.1 Added on 04 March 2015
 (function () {
 	var ifrm = document.createElement('iframe');
 	var adcall = document.getElementById('pgmad-inside');
@@ -15,7 +15,7 @@
 	var pgCookie;
 	
 	function triggerRefresh(){
-		//adlink(); // To change ad immediately after comming window on focus 
+		adlink(); // To change ad immediately after comming window on focus 
 		refreshId = setInterval(adlink,refreshInterval);
 	}
 	
@@ -85,7 +85,7 @@
         	if(pgCookie){
         		var st = document.createElement('img');
                 st.type = "text/javascript";
-        		st.src =  "http://ib.adnxs.com/getuid?http://sync.personagraph.com:8090//pixel?pg_uuid="+pgCookie+"&adnxs_uid=$UID"
+        		st.src =  "http://ib.adnxs.com/getuid?http://sync.personagraph.com:8090//pixel?pg_uuid="+pgCookie+"&adnxs_uid=$UID";
                 document.body.appendChild(st);
         	}
     	}
@@ -117,18 +117,17 @@
 		xmlhttp.onreadystatechange=function()
 	    {
 		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
-			var obj = JSON.parse(xmlhttp.response);
-			var flag = obj.settings[0][id];
-			if(flag == 1){
-				if(obj.settings[0]['refreshRate']){
-					refreshInterval = obj.settings[0]['refreshRate'] * 1000;
+		  {
+		    var obj = JSON.parse(xmlhttp.response);
+		    if(obj.settings && obj.settings[0]){
+		       var flag = obj.settings[0][id];
+			   if(flag == 1){
+					refreshInterval = obj.settings[0]['refreshRate'] == undefined ? refreshInterval : obj.settings[0]['refreshRate'] * 1000;
+					d.parentNode.insertBefore(ifrm,d);
+					triggerRefresh();
 				}
-			   d.parentNode.insertBefore(ifrm,d);
-			   triggerRefresh();
-			}
-			else if (flag == 0 ){}
-		    }
+			 }
+		  }
 		}
 		xmlhttp.open("GET","http://an.pgm.personagraph.com/api/v1/appevent/placement?placementId="+id); // removed third parameter(false) to work as async call
 		xmlhttp.send();

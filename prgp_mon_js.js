@@ -15,7 +15,7 @@
 	var pgCookie;
 	
 	function triggerRefresh(){
-		//adlink(); // To change ad immediately after comming window on focus 
+		adlink(); // To change ad immediately after comming window on focus 
 		refreshId = setInterval(adlink,refreshInterval);
 	}
 	
@@ -82,10 +82,11 @@
     function syncUser(){
     	if(enableUserSync){
     		pgCookie = ReadCookie("pg");
+    		alert(pgCookie);
         	if(pgCookie){
         		var st = document.createElement('img');
                 st.type = "text/javascript";
-        		st.src =  "http://ib.adnxs.com/getuid?http://sync.personagraph.com:8090//pixel?pg_uuid="+pgCookie+"&adnxs_uid=$UID"
+        		st.src =  "http://ib.adnxs.com/getuid?http://sync.personagraph.com:8090//pixel?pg_uuid="+pgCookie+"&adnxs_uid=$UID";
                 document.body.appendChild(st);
         	}
     	}
@@ -117,7 +118,7 @@
 		xmlhttp.onreadystatechange=function()
 	    {
 		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
+		  {
 			var obj = JSON.parse(xmlhttp.response);
 			var flag = obj.settings[0][id];
 			if(flag == 1){
@@ -127,8 +128,7 @@
 			   d.parentNode.insertBefore(ifrm,d);
 			   triggerRefresh();
 			}
-			else if (flag == 0 ){}
-		    }
+		  }
 		}
 		xmlhttp.open("GET","http://an.pgm.personagraph.com/api/v1/appevent/placement?placementId="+id); // removed third parameter(false) to work as async call
 		xmlhttp.send();
