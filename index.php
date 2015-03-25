@@ -12,8 +12,25 @@
 	   if(is_dir(IMAGE_LOCATION . "/" .$placement_id))
           $files = scandir(IMAGE_LOCATION . "/" .$placement_id);
 
-	   
 	   $placementName = $placement_id;
+	   
+	   $data = file_get_contents('data.json');
+	   
+	   $data = json_decode($data);
+
+	   $pubName = substr($placement_id, 11);
+	   
+	   $advList = $data->$pubName;
+	   
+	   $queryParams = explode('?', $_SERVER[REQUEST_URI]);
+	   $baseUrl = $_SERVER['HTTP_HOST'].$queryParams[0]."?placement_id=".$placement_id;
+	   
+	   $adv_ids = $_GET['adv_ids'];
+	   
+	   $adv_ids = explode(",",$adv_ids);
+	   
+	   print_r($adv_ids);
+	   
 	   //$pName = substr($placement_id, strlen($pId) + 1);
 	   #$placementName = str_replace("_"," ",$placementName);
 	   #$placementName = str_replace("-"," ",$placementName);
@@ -59,11 +76,31 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Campaign Optimization Dashboard
-                   <small></small> 
+                   <small><button class="pull-right" id="filter" class="btn btn-primary">Show Filter</button> </small>
                 </h1>
-                <small class=""> <a href="placements.php">Back</a> >> <?php echo $placementName;?> </small>
+                
+        <div id="filter_div" style="display: none;">
+           <h4>Select checkbox to filter the contents</h4>
+           <hr>
+			  <?php if($advList):?>
+			  <?php foreach ($advList as $key => $val):?>
+			  <div class="checkbox">
+			    <label>
+			      <input type="checkbox" value="<?php echo $val[0]; ?>"> <?php echo $val[0] ." $".$val[1] ?>
+			    </label>
+			  </div>
+			  <?php endforeach;?>
+			  <?php endif;?>
+			  <br />
+			  <button  class="btn btn-primary" id="filter-but">Filter</button>
+			  <button class="btn btn-primary" id="comp-but">Compare</button>
+			
+        </div> 
+                
+                <small class=""> <a href="placements.php">Back</a> >> <?php echo $pubName;?> </small>
             </div>
         </div>
+        
         <!-- /.row -->
 
         <!-- Projects Row -->
@@ -82,7 +119,7 @@
              <?php endif;?> 
            <?php endforeach;?>
         
-        
+        <input type="text" value="<?php echo $baseUrl?>" id="base_url"/>
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -97,6 +134,59 @@
     <!-- /.container -->
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>	
+    
+    <script type="text/javascript">
+
+    var filterList = [];
+    var compareList = [];
+    
+    $("#filter").click(function(){
+        $("#filter_div").toggle();
+        if($(this).text() == "Show Filter"){
+        	$(this).text('Hide Filter')
+        }else{
+        	$(this).text('Show Filter')
+        }
+    });
+
+    $("input[type=checkbox]" ).on( "click", function(e){
+          var val = $(this).val();
+          if($(this).is(":checked")){
+        	  filterList.push(val);
+        	  compareList.push(val);
+          }else{
+        	  filterList.splice($.inArray(val, filterList),1);
+        	  compareList.splice($.inArray(val, compareList),1);
+          }
+    });
+    
+    $("#filter-but").on("click",function(){
+    	if(compareList.length == 0){
+    		alert("Please select at least one 1 element to filter");
+    	}else{
+        	var queryString = '';
+        	for(var i= 0 ; i< filterList.length ; i++){
+        		queryString = (queryString == "") ?filterList[i] : queryString + "," + filterList[i];
+        	}
+        	var url = "http://"+ $('#base_url').val() +"&adv_ids="+queryString +"&filter=compare";
+        	window.location.href = url;
+    	}
+    });
+    
+    $("#comp-but").on("click",function(){
+    	if(compareList.length == 2){
+        	var queryString = '';
+        	for(var i= 0 ; i< compareList.length ; i++){
+        		queryString = (queryString == "") ?compareList[i] : queryString + "," + compareList[i];
+        	}
+           var url = "http://"+ $('#base_url').val() +"&adv_ids="+queryString +"&filter=compare";
+           window.location.href = url;
+    	}else{
+        	alert("Please select 2 elements for compare");
+    	}
+    });
+    
+    </script>
     
 </body>
 </html>
