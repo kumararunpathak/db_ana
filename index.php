@@ -26,16 +26,40 @@
 	   $baseUrl = $_SERVER['HTTP_HOST'].$queryParams[0]."?placement_id=".$placement_id;
 	   
 	   $adv_ids = $_GET['adv_ids'];
-	   
 	   $adv_ids = explode(",",$adv_ids);
 	   
-	   print_r($adv_ids);
+	   $filter = $_GET['filter'];
 	   
-	   //$pName = substr($placement_id, strlen($pId) + 1);
-	   #$placementName = str_replace("_"," ",$placementName);
-	   #$placementName = str_replace("-"," ",$placementName);
-	  // $placementName
 	   
+	   if(count($adv_ids) == 0 || (count($adv_ids) == 1 && $adv_ids[0] == "")){
+	   		$passPattern = array(
+	   			'pie_impression',
+	   			'pie_Total',
+	   			'pub_id',
+	   			'pub_rpm_id',
+	   			'line_Fill',
+	   			'pie_RPM'
+	   		);
+	   }else{
+	   		$passPattern = array();
+	   }
+	 
+	   if($filter == 'compare'){
+           $pass1 = 'Two_bar_advetrtiser_id_'. $adv_ids[0]."_".$pubName."_".$adv_ids[1];
+           $pass2 = 'Two_bar_advetrtiser_id_'. $adv_ids[1]."_".$pubName."_".$adv_ids[0];
+           $passPattern[] = $pass1;
+           $passPattern[] = $pass2;
+	   }
+	   
+	   if($filter == 'filter'){
+	      foreach ($adv_ids as $val){
+	      	if($val){
+	      		$pass1 = 'line_advertiser_id_'.$val;
+	      		$passPattern[] = $pass1;
+	      	}
+	      }
+	   }
+	 
 ?>
   
 <!DOCTYPE html>
@@ -86,7 +110,7 @@
 			  <?php foreach ($advList as $key => $val):?>
 			  <div class="checkbox">
 			    <label>
-			      <input type="checkbox" value="<?php echo $val[0]; ?>"> <?php echo $val[0] ." $".$val[1] ?>
+			      <input type="checkbox" value="<?php echo $val[0]; ?>"> <?php echo $val[0] .", This week revenue $".$val[1] ?>
 			    </label>
 			  </div>
 			  <?php endforeach;?>
@@ -106,18 +130,36 @@
         <!-- Projects Row -->
        
        <?php foreach ($files as $key => $val ):?>
-          <?php if(!(substr($val, 0, 1) == '.')): ?>
-            <div class="col-md-6 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src=<?php echo   "Archive/Archive/" .$placement_id . "/". $val ; ?> alt="">
-                </a>
-                <h3>
-                    <a href="#"><?php ?></a>
-                </h3>
-                <p></p>
-            </div>
-             <?php endif;?> 
-           <?php endforeach;?>
+       
+          <?php if(!$filter):?>
+	          <?php if(!(substr($val, 0, 1) == '.')): ?>
+	            <div class="col-md-6 portfolio-item">
+	                <a href="#">
+	                    <img class="img-responsive" src=<?php echo   "Archive/Archive/" .$placement_id . "/". $val ; ?> alt="">
+	                </a>
+	                <h3>
+	                    <a href="#"><?php ?></a>
+	                </h3>
+	                <p></p>
+	            </div>
+	         <?php endif;?>
+	          
+          <?php else:?>          
+	          <?php 
+	          foreach ($passPattern as $pattern):
+	             if (strpos($val,$pattern) !== false) { ?>
+	             	<div class="col-md-6 portfolio-item">
+	             		<a href="#"><img class="img-responsive" src=<?php echo   "Archive/Archive/" .$placement_id . "/". $val ; ?> alt=""></a>
+	                	<h3> <a href="#"><?php ?></a></h3><p></p>
+	             	</div>
+                 <?php  }
+	           
+	           endforeach;
+	           ?>          
+          <?php endif;?>
+          
+       
+       <?php endforeach;?>
         
         <input type="text" value="<?php echo $baseUrl?>" id="base_url"/>
         <!-- Footer -->
@@ -161,16 +203,16 @@
     });
     
     $("#filter-but").on("click",function(){
-    	if(compareList.length == 0){
-    		alert("Please select at least one 1 element to filter");
-    	}else{
+    	//if(compareList.length == 0){
+    		//alert("Please select at least one 1 element to filter");
+    	//}else{
         	var queryString = '';
         	for(var i= 0 ; i< filterList.length ; i++){
         		queryString = (queryString == "") ?filterList[i] : queryString + "," + filterList[i];
         	}
-        	var url = "http://"+ $('#base_url').val() +"&adv_ids="+queryString +"&filter=compare";
+        	var url = "http://"+ $('#base_url').val() +"&adv_ids="+queryString +"&filter=filter";
         	window.location.href = url;
-    	}
+    	//}
     });
     
     $("#comp-but").on("click",function(){
