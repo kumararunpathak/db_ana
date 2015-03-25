@@ -5,7 +5,7 @@
 	     header("Location: login.php");// send to login page
 	     exit;
 	   } 
-	   CONST IMAGE_LOCATION = 'Archive';
+	   CONST IMAGE_LOCATION = 'Archive/Archive';
 	   $placement_id =  $_GET['placement_id'];
 	   $placement_id = $placement_id == ""?3669452:$placement_id;
 	   $files = Array();
@@ -15,8 +15,8 @@
 	   
 	   $placementName = $placement_id;
 	   //$pName = substr($placement_id, strlen($pId) + 1);
-	   $placementName = str_replace("_"," ",$placementName);
-	   $placementName = str_replace("-"," ",$placementName);
+	   #$placementName = str_replace("_"," ",$placementName);
+	   #$placementName = str_replace("-"," ",$placementName);
 	  // $placementName
 	   
 ?>
@@ -72,7 +72,7 @@
           <?php if(!(substr($val, 0, 1) == '.')): ?>
             <div class="col-md-6 portfolio-item">
                 <a href="#">
-                    <img class="img-responsive" src=<?php echo   "Archive/" .$placement_id . "/". $val ; ?> alt="">
+                    <img class="img-responsive" src=<?php echo   "Archive/Archive/" .$placement_id . "/". $val ; ?> alt="">
                 </a>
                 <h3>
                     <a href="#"><?php ?></a>

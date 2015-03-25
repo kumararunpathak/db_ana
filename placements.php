@@ -5,7 +5,7 @@
 	     header("Location: login.php");// send to login page
 	     exit;
 	   } 
-	   CONST IMAGE_LOCATION = "Archive";
+	   CONST IMAGE_LOCATION = "Archive/Archive";
 	   $placements = scandir(IMAGE_LOCATION);
   ?>
 <!DOCTYPE html>
@@ -66,8 +66,8 @@
 	                //$pId =  $nameArray[0];
 	                //$pName = substr($val, strlen($pId) + 1);
 	                $pName = $val;
-	                $pName = str_replace("_"," ",$pName);
-	                $pName = str_replace("-"," ",$pName);
+	                #$pName = str_replace("_"," ",$pName);
+	                #$pName = str_replace("-"," ",$pName);
 	                
 	                ?>
 				        <a href="index.php?placement_id=<?php echo $val;?>" class="list-group-item">
